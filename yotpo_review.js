@@ -1,5 +1,10 @@
 document.addEventListener("DOMContentLoaded", function () {
     $(document).ready(function () {
+      
+      
+      
+     
+
         /*
          * @sdataId get product Id.
          */
@@ -30,8 +35,9 @@ document.addEventListener("DOMContentLoaded", function () {
              *@roundRating remove rounds in rating 
              */
             var cAvegRating = data.response.bottomline.average_score;
+          
           var newRate = cAvegRating.toFixed(1);
-            var roundRating = Math.round(cAvegRating);
+           var roundRating = Math.round(cAvegRating);
             console.log(cAvegRating + "rating");
             /*
              *@avgR get aevrage rating and implement with star rating.
@@ -70,11 +76,16 @@ document.addEventListener("DOMContentLoaded", function () {
              * @ratingBar ratingbar for slider 
              */
             var ratingBar = data.response.bottomline.star_distribution;
+          
             console.log(ratingBar);
             var ratDiv = '<div class="trustyou-progressbar">';
             $.each(ratingBar, function (key, value) {
+              
+    
                 console.log(key + "-" + value);
-                ratDiv += '<div class="prg_bar">' + key + ' Star <div class="progress progressFill" style="width:100px; border:solid; height:30px;"><span class="progress-bar ani-puan" ani-puan=' + value + ' data-width="' + value + '" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></span></div>' + value + '</div>';
+              
+              
+                ratDiv = '<div class="prg_bar">' + key + ' Star <div class="progress progressFill" style="width:100px; border:solid; height:30px;"><span class="progress-bar ani-puan" ani-puan=' + value + ' data-width="' + value + '" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></span></div>' + value + '</div>'+ratDiv;
             });
             ratDiv += '</div>';
             $('.all_rating').html(ratDiv);
@@ -153,7 +164,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 slidesToScroll: 1
                 
             });
-            //$('.reviewsSlider')[0].slick.refresh();
+            
             if($(window).width() < 601) {
                    $('.reviewsSlider').slick('refresh'); $('.reviewsSlider').slick('slickSetOption','slidesToShow', 2);$('.reviewsSlider').slick('slickSetOption','slidesToScroll', 1);$('.reviewsSlider').slick('slickNext');
          
@@ -217,7 +228,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     }
                 });
             });
-//        //ajax call for up     
+//        //ajax call for down   
         });
     });
 });
