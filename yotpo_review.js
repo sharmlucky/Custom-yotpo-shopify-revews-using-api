@@ -1,19 +1,16 @@
 document.addEventListener("DOMContentLoaded", function () {
     $(document).ready(function () {
       
-      
-      
-     
 
         /*
          * @sdataId get product Id.
          */
-        var sdataId = $('.custom_data_id').attr('data-id');
+        var sdataId = $('.product-single__title').attr('data-id');
         console.log('my sdata-id' + ' ' + sdataId);
         /**
          *get response using api.
          */
-        $.get('https://api.yotpo.com/v1/widget/HbHZaa57YaJcRZ7icloY3J4wq8V7HlrB3Qghj1RQ/products/' + sdataId + '/reviews.json', function (data) {
+        $.get('https://api.yotpo.com/v1/widget/6jyxeFyL6c2VmhiXvbCyRVzytTwcmSEkExIOubKZ/products/' + sdataId + '/reviews.json', function (data) {
             /*
              *@cbottomLine get total review  
              */
@@ -22,6 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 $('.cstm_rating').hide();
                 $('.all_rating').hide();
             }
+          
             console.log('total reviewss' + cbottomLine);
             var cbottomLines = data.response.reviews;
             console.log(cbottomLines + "hello");
@@ -88,6 +86,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 ratDiv = '<div class="prg_bar">' + key + ' Star <div class="progress progressFill" style="width:100px; border:solid; height:30px;"><span class="progress-bar ani-puan" ani-puan=' + value + ' data-width="' + value + '" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></span></div>' + value + '</div>'+ratDiv;
             });
             ratDiv += '</div>';
+          
+          
+          
+          
             $('.all_rating').html(ratDiv);
             /*rating color script*/
             var getprogressPuan = $('.ani-puan').attr('ani-puan');
@@ -115,10 +117,16 @@ document.addEventListener("DOMContentLoaded", function () {
              *@customRewies get all reviews
              */
             var customRewies = data.response.reviews;
-            console.log(customRewies);
+            
             // alert("Data Loaded: " + data);
             var div_data = "";
             $.each(customRewies, function (key, value) {
+              console.log('reviewsss'+value);
+//               if(){
+              
+              
+//               }
+              
                 var votup = value.votes_up;
                 var votDown = value.votes_down;
                 console.log('new votup' + votup);
@@ -148,22 +156,45 @@ document.addEventListener("DOMContentLoaded", function () {
             /*
              * Add all reviews in slider.
              */
+          
+          if(cbottomLine == 2){
+//             alert('hello');
+          
+        
+           $('.inner_review').css('background-color','red');
+          
+          }
+          
             $(".reviewsSlider").html(div_data);
             /*
              *slick slider init.
              */
+          if(cbottomLine < 3){
+          
+          $('.inner_review').removeClass('col-md-4');
+            $('.ctm_prev').hide();
+            $('.ctm_next').hide();
+          }
+          if(cbottomLine > 3){
             $('.reviewsSlider').slick({
-                infinite: true,
-                dots: true,
+        
+              arrows: true,
+  			  centerPadding: '0px',
+			  slidesToShow: 3,
+			  slidesToScroll: 1,
+			  dots:true,
+			  focusOnSelect: true,
+			  adaptiveHeight: true,
+               
                 customPaging: function (slick, index) {
                     return '<a>' + (index + 1) + '</a>';
                 },
                 nextArrow: '.ctm_next',
-                prevArrow: '.ctm_prev',
-                slidesToShow: 3,
-                slidesToScroll: 1
+                prevArrow: '.ctm_prev'
+               
                 
             });
+         }
             
             if($(window).width() < 601) {
                    $('.reviewsSlider').slick('refresh'); $('.reviewsSlider').slick('slickSetOption','slidesToShow', 2);$('.reviewsSlider').slick('slickSetOption','slidesToScroll', 1);$('.reviewsSlider').slick('slickNext');
@@ -230,5 +261,8 @@ document.addEventListener("DOMContentLoaded", function () {
             });
 //        //ajax call for down   
         });
+      
+      
+      
     });
 });
