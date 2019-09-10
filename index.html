@@ -1,3 +1,5 @@
+<!-- reviews custom-->
+<div class="sec_devide_border"></div>
   <!---reviews--->
   
 
@@ -6,33 +8,192 @@
   <div class="container custom_yotpo">
  
 
-    <!--upper row-->
-    <div class="row row_upper">
-      <div class="col-md-4 rating_col">
-        <div class="cstm_rating"></div>
-         <div class="all_rating"></div> 
-      
-      </div>
-      <div class="col-md-4 title_col">
-         <div class="cstm_heading">
-           <h2>YOU'RE IN GOOD COMPANY</h2>
-           <div class="total_reviews"></div>
-        </div>
-       </div>
-      <div class="col-md-4 offset_col">
-        <div class="ctm_control">
-          <i class="fa fa-angle-left ctm_prev"></i>
-          <i class="fa fa-angle-right ctm_next"></i>          
-        </div>
-      </div>
+  <!--upper row-->
+  <div class="row row_upper">
+    <div class="col-md-4 rating_col">
+      <div class="cstm_rating"></div>
+       <div class="all_rating"></div> 
     
     </div>
-    <!--/upper row-->
-    <div class="lower_sec">
-        <div class="row reviewsSlider"></div>
-  
+    <div class="col-md-4 title_col">
+       <div class="cstm_heading">
+         <h2>YOU'RE IN GOOD COMPANY</h2>
+         <div class="total_reviews"></div>
+         <div class="write_section">
+           <a href="#" class="pen_edit"><i class="fa fa-pencil" aria-hidden="true"></i> Write A Review</a>
+         </div> 
+      </div>
+     </div>
+    <div class="col-md-4 offset_col">
+      <div class="ctm_control">
+        <i class="fa fa-angle-left ctm_prev"></i>
+        <i class="fa fa-angle-right ctm_next"></i>          
+      </div>
     </div>
   
   </div>
+    <div class="review_form" style="display:none;">
+              <div class="succes_msg" style="display:none;">
+                <div class="yotpo-thankyou-header text-3xl">
+                 <i class="fa fa-heart" aria-hidden="true"></i>
+                  <span>Thank you for posting a review!</span> 
+                </div>
+              <div class="yotpo-thankyo-content"> 
+                <span>Your review was sent successfully and is now waiting for our staff to publish it.</span> 
+              </div>
+              </div>
+               <form method="post" class="form_rev">
+                  
+                 <div class="rating-box">
+                   <span class="scr_text">Score:</span>
+                  <span class="fa fa-star" data-rating="1"></span>
+                  <span class="fa fa-star-o" data-rating="2"></span>
+                  <span class="fa fa-star-o" data-rating="3"></span>
+                  <span class="fa fa-star-o" data-rating="4"></span>
+                  <span class="fa fa-star-o" data-rating="5"></span>
+                  <input type="hidden" name="rating" class="rating-value" value="1">
+                </div>
+                 
+                  <div class="form-group">
+                    <label for="title">Title</label>
+                    <input type="text" class="form-control" id="create_title" name="title" required>
+                    <p class="t_title red_col" style="display:none;">Please fill this field</p>
+                  </div>
+                  <div class="form-group">
+                    <label for="pwd">Review</label>
+                    <textarea class="form-control" id="creview" rows="4" name="content" required></textarea>  
+                    <p class="t_rev red_col" style="display:none;">Please fill this field</p>
+                  </div>
+                 <div class="row row_user">
+                   <div class="col-md-6"><label>User name</label> <input type="text" class="form-control" id="create_name" name="user" required> <p class="t_user red_col" style="display:none;">Please fill this field</p></div>
+                   <div class="col-md-6"><label>Email</label> <input type="text" class="form-control" id="create_email" name="email" required> <p class="t_email red_col" style="display:none;">Please fill this field</p></div>
+                 </div>
+                       
+                <button type="button" class="btn post_rev">Post</button>
+              </form> 
+            </div>
+  <!--/upper row-->
+    
+  <div class="lower_sec">
+  	<div class="row reviewsSlider"></div>
+
+  </div>
+
+</div>
+
+  <!--reviews-->
   
-    <!--reviews-->
+  <div style="clear:both"></div>
+  <div class="sec_devide_border"></div>
+
+<!-- /reviews custom-->
+
+<script type="text/javascript">
+ 
+  /*
+  * write reviews star js
+  */ 
+   document.addEventListener("DOMContentLoaded", function () {
+  $(document).ready(function(){
+    var star_rating = $('.rating-box .fa');
+
+var SetRatingStar = function() {
+  return star_rating.each(function() {
+    if (parseInt(star_rating.siblings('input.rating-value').val()) >= parseInt($(this).data('rating'))) {
+      return $(this).removeClass('fa-star-o').addClass('fa-star');
+    } else {
+      return $(this).removeClass('fa-star').addClass('fa-star-o');
+    }
+  });
+};
+
+star_rating.on('click', function() {
+  star_rating.siblings('input.rating-value').val($(this).data('rating'));
+  return SetRatingStar();
+});
+
+SetRatingStar();
+  });
+   });
+  </script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+  $(document).ready(function(){
+    $('.post_rev').on('click',function(event){ 
+       event.preventDefault();
+          var rateValue = $('.rating-value').val();
+          var cTitle = $('#create_title').val(); 
+          var cReview = $('#creview').val();
+          var variantSku = $('.variant-sku').text();
+          var pTitle = $('.product-single__title').text();
+          var pDesp = $('.desc_sec_outer p').text().substring(0, 26); 
+          var img_url  = $('.product-featured-img').attr('src');
+          var prodURL = $(location).attr("href");
+      var create_name = $('#create_name').val();
+      var create_email = $('#create_email').val();
+      
+      if(cTitle == '')
+    {
+	  $('.t_title').show();
+   
+    }
+      else if(cReview == '')
+    {
+	   $('t_rev').show();
+    }
+      
+      else if(create_name == '')
+    {
+	 
+    $('.t_user').show();
+   
+    }
+    else if(create_email == '')
+    {
+	 $('.t_email').show();
+	 
+    }
+   
+      else{
+       
+      /*
+  * write review ajax call
+  */ 
+      var settings = {
+          "async": true,
+          "crossDomain": true,
+          "url": "https://api.yotpo.com/reviews/dynamic_create?appkey=HbHZaa57YaJcRZ7icloY3J4wq8V7HlrB3Qghj1RQ&domain=https://vikingcycle.myshopify.com/%2F&sku="+variantSku+"&product_title="+pTitle+"&product_description="+pDesp+"&product_url="+prodURL+"&product_image_url="+img_url+"&display_name="+create_name+"&email="+create_email+"&review_content="+cReview+"&review_title="+cTitle+"&review_score="+rateValue+"&reviewer_type=verified_buyer",
+          "method": "POST",
+          "headers": {
+            "cache-control": "no-cache"
+          }
+        }
+      $.ajax(settings).done(function (response) {
+        
+        if(response){
+          $('.succes_msg').show();
+          $('.form_rev').hide(); 
+        
+        }   
+      });
+      
+      //ajax response close
+
+      
+      }
+          
+    });
+
+  });
+      
+      
+      $('.pen_edit').click(function(){ 
+      
+      $('.review_form').slideDown();
+      
+      
+      });     
+       
+});
+  </script>
+
